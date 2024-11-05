@@ -25,22 +25,22 @@ jobs:
           docker push 244530008913.dkr.ecr.eu-west-1.amazonaws.com/lika027/lab5:$rev
           
           
-    push_to_another_registry:
-      name: Push Docker image to Docherhub
-      runs-on: ubuntu-latest
-      steps:
-        - name: Check out the repo
-          uses: actions/checkout@v2
+  push_to_another_registry:
+    name: Push Docker image to Docherhub
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+        
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with: 
+          username: ${{secrets.DOCKERHUB_USERNAME}}
+          password: ${{secrets.DOCKERHUB_PASSWORD}}
           
-        - name: Login to Docker Hub
-          uses: docker/login-action@v1
-          with: 
-            username: ${{secrets.DOCKERHUB_USERNAME}}
-            password: ${{secrets.DOCKERHUB_PASSWORD}}
-            
-        - name: Build and push Docker image
-          run: |
-            rev=$(git rev-parse --short HEAD)
-            docker build . -t <image tag>
-            docker tag <image tag> lika027/<tag remote>_$rev
-            docker push lika027/<tag remote>_$rev
+      - name: Build and push Docker image
+        run: |
+          rev=$(git rev-parse --short HEAD)
+          docker build . -t <image tag>
+          docker tag <image tag> lika027/<tag remote>_$rev
+          docker push lika027/<tag remote>_$rev
