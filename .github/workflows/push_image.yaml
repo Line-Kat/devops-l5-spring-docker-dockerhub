@@ -40,6 +40,7 @@ jobs:
           
       - name: Build and push Docker image
         run: |
+          rev=$(git rev-parse --short HEAD)
           docker build . -t <image tag>
           docker tag <image tag> lika027/<tag remote>_$rev
           docker push lika027/<tag remote>_$rev
