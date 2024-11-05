@@ -42,5 +42,5 @@ jobs:
         run: |
           rev=$(git rev-parse --short HEAD)
           docker build . -t cool_image
-          docker tag cool_image lika027/$rev_cool_image
-          docker push lika027/$rev_cool_image
+          docker tag cool_image lika027/cool_image:$rev
+          docker push lika027/cool_image:$rev
